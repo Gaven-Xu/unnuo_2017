@@ -1,0 +1,27 @@
+{
+  "name": "unnuo-2017",
+  "version": "1.0.0",
+  "description": "The 2017 vision wordpress theme for unnuo.com",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Gaven-Xu/unnuo_2017.git"
+  },
+  "keywords": [
+    "unnuo",
+    "2017"
+  ],
+  "author": "Gaven",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gaven-Xu/unnuo_2017/issues"
+  },
+  "homepage": "https://github.com/Gaven-Xu/unnuo_2017#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-sass-lint": "^1.3.2"
+  }
+}
