@@ -75,8 +75,8 @@ gulp = (function(gulp) {
 
     gulp.task('es', function() {
         gulp.src('./src/script/**/*.js')
-            .pipe(sourcemap.init())
             .pipe(concat('script.js'))
+            .pipe(sourcemap.init())
             .pipe(babel())
             // .pipe(sourcemap.write('./'))
             .pipe(gulp.dest('./dist/script'))
@@ -87,15 +87,13 @@ gulp = (function(gulp) {
             .pipe(uglify())
             .pipe(sourcemap.write('./'))
             .pipe(gulp.dest('./dist/script/'));
-
-
     })
 
     // gulp.task('uglify', function() {
     //
     // })
 
-    gulp.task('es:watch', function() {
+    gulp.task('es:watch',function() {
         gulp.watch(['./src/script/**/*.js'], ['es'])
     })
 
