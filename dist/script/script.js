@@ -2,16 +2,32 @@
 
 window.ucai = window.ucai || {};
 
-(function (str1, str2, str3, str4) {
-    // console.log('abc');
-    var _str1 = str1;
-    var _str2 = str2;
-    var _str3 = str3;
-    var _str4 = str4;
-    console.log(_str1 + _str2 + _str3 + _str4);
-})('Hello', ' ', 'World', '!');
+(function () {
 
-(function (str) {
+    // 传入一个参数n。生成n个1-31的随机数，且不重复
+    function main(_n, _min, _max) {
+        this.n = _n;
+        this.min = _min;
+        this.max = _max;
+        this.result = [];
+    }
+
+    main.prototype.getRandomNumber = function () {
+        return Math.random() * this.max;
+    };
+
+    main.prototype.checkNumber = function (num) {
+        for (var i = 0; i < this.result.length; i++) {
+            this.result[i] = num;
+        }
+    };
+
+    main.prototype.getNNumber = function () {
+        for (var i = 0; i < this.n; i++) {
+            // this.result.push(this.getRandomNumber())
+        }
+    };
+})()(function (str) {
     var _str = str;
     console.log(_str);
-})('234');
+})('456');

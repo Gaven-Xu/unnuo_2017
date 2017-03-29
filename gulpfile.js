@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     concatCss = require('gulp-concat-css'),
     uglify = require('gulp-uglify'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    clean = require('gulp-clean');
 // sassLint = require('gulp-sass-lint'); 文档不好用
 
 gulp.task('default', function() {
@@ -31,7 +32,10 @@ gulp = (function(gulp) {
             .pipe(sourcemap.write('./'))
             // write() 将map信息，以注释的方式插入到编译文件中
             // write('./') 将map信息，在指定目录，以map文件的方式存储
-            .pipe(gulp.dest('./src/style/'));
+            .pipe(gulp.dest('./dist/style/'))
+            .on('end',function() {
+                // gulp.start('concat-css');
+            });
     })
 
     gulp.task('sass', function() {
@@ -45,7 +49,10 @@ gulp = (function(gulp) {
             .pipe(sourcemap.write('./'))
             // write() 将map信息，以注释的方式插入到编译文件中
             // write('./') 将map信息，在指定目录，以map文件的方式存储
-            .pipe(gulp.dest('./src/style/'));
+            .pipe(gulp.dest('./dist/style/'))
+            .on('end',function() {
+                // gulp.start('concat-src');
+            });
     })
 
     gulp.task('concat-css', function() {
@@ -55,13 +62,33 @@ gulp = (function(gulp) {
             }))
             .pipe(concatCss('style.css'))
             .pipe(sourcemap.write('./'))
-            .pipe(gulp.dest('./dist/style/'));
-
+            .pipe(gulp.dest('./dist/style/'))
+            .on('end',function() {
+                gulp.start('clean-src'); // 编译完成之后的第二次清理
+            });
     })
 
-    gulp.task('css:watch', function() {
-        gulp.watch(['./src/style/**/*.scss'], ['scss', 'concat-css']);
-        gulp.watch(['./src/style/**/*.sass'], ['sass', 'concat-css']);
+    gulp.task('clean-src', function() {
+        gulp.src(['./src/style/**/*.css', './src/style/**/*.map'], {
+                read: false
+            })
+            .pipe(clean({
+                force: true
+            }))
+    })
+
+    gulp.task('clean-dist', function() {
+        gulp.src(['./dist/style/**/*.css','./dist/style/**/*.map'], {
+                read: false
+            })
+            .pipe(clean({
+                force: true
+            }))
+    })
+
+    gulp.task('css:watch', ['clean-dist'], function() {
+        gulp.watch(['./src/style/**/*.scss'], ['scss']);
+        gulp.watch(['./src/style/**/*.sass'], ['sass']);
     })
 
     return gulp;
@@ -89,11 +116,16 @@ gulp = (function(gulp) {
             .pipe(gulp.dest('./dist/script/'));
     })
 
-    // gulp.task('uglify', function() {
-    //
-    // })
+    gulp.task('clean-js', function() {
+        gulp.src(['./dist/script/**/*.js', './dist/script/**/*.map'], {
+                read: false
+            })
+            .pipe(clean({
+                force: true
+            }))
+    })
 
-    gulp.task('es:watch',function() {
+    gulp.task('es:watch', ['clean-js'],function() {
         gulp.watch(['./src/script/**/*.js'], ['es'])
     })
 
