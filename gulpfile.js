@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 // sassLint = require('gulp-sass-lint'); 文档不好用
 
 gulp.task('default', function() {
-    console.log('Gulp config success!');
+    console.log('Gulp Config Success!');
 })
 
 /**
@@ -33,7 +33,7 @@ gulp = (function(gulp) {
             // write() 将map信息，以注释的方式插入到编译文件中
             // write('./') 将map信息，在指定目录，以map文件的方式存储
             .pipe(gulp.dest('./dist/style/'))
-            .on('end',function() {
+            .on('end', function() {
                 // gulp.start('concat-css');
             });
     })
@@ -50,7 +50,7 @@ gulp = (function(gulp) {
             // write() 将map信息，以注释的方式插入到编译文件中
             // write('./') 将map信息，在指定目录，以map文件的方式存储
             .pipe(gulp.dest('./dist/style/'))
-            .on('end',function() {
+            .on('end', function() {
                 // gulp.start('concat-src');
             });
     })
@@ -63,7 +63,7 @@ gulp = (function(gulp) {
             .pipe(concatCss('style.css'))
             .pipe(sourcemap.write('./'))
             .pipe(gulp.dest('./dist/style/'))
-            .on('end',function() {
+            .on('end', function() {
                 gulp.start('clean-src'); // 编译完成之后的第二次清理
             });
     })
@@ -78,7 +78,7 @@ gulp = (function(gulp) {
     })
 
     gulp.task('clean-dist', function() {
-        gulp.src(['./dist/style/**/*.css','./dist/style/**/*.map'], {
+        gulp.src(['./dist/style/**/*.css', './dist/style/**/*.map'], {
                 read: false
             })
             .pipe(clean({
@@ -125,10 +125,49 @@ gulp = (function(gulp) {
             }))
     })
 
-    gulp.task('es:watch', ['clean-js'],function() {
+    gulp.task('es:watch', ['clean-js'], function() {
         gulp.watch(['./src/script/**/*.js'], ['es'])
     })
 
     return gulp;
+
+})(gulp)
+
+/**
+ * For release
+ * move script and style out of dist
+ * del folder dist、src、node_modules、.babelrc、
+ */
+gulp = (function(gulp) {
+
+    gulp.task('release', function() {
+        gulp.src('./dist')
+            .pipe(gulp.dest('./'))
+            .on('end', function() {
+                gulp.start('release-clean');
+            })
+    })
+
+    gulp.task('release-clean', function() {
+        gulp.src([
+                './dist',
+                './src',
+                './node_modules',
+                './unitTest',
+                './gulpfile.js',
+                './karma.conf.js',
+                './package.json',
+                './readme.md',
+                './test.html',
+                '.babelrc',
+                '.csscomb.json',
+                '.gitignore',
+            ], {
+                read: false
+            })
+            .pipe(clean({
+                force: true
+            }))
+    })
 
 })(gulp)
