@@ -10,7 +10,8 @@ var gulp = require('gulp'),
 // sassLint = require('gulp-sass-lint'); 文档不好用
 
 gulp.task('default', function() {
-    console.log('Gulp Config Success!');
+    gulp.start('css');
+    gulp.start('es');
 })
 
 /**
@@ -32,7 +33,7 @@ gulp = (function(gulp) {
             .pipe(sourcemap.write('./'))
             // write() 将map信息，以注释的方式插入到编译文件中
             // write('./') 将map信息，在指定目录，以map文件的方式存储
-            .pipe(gulp.dest('./dist/style/'))
+            .pipe(gulp.dest('./style/'))
             .on('end', function() {
                 // gulp.start('concat-css');
             });
@@ -49,27 +50,14 @@ gulp = (function(gulp) {
             .pipe(sourcemap.write('./'))
             // write() 将map信息，以注释的方式插入到编译文件中
             // write('./') 将map信息，在指定目录，以map文件的方式存储
-            .pipe(gulp.dest('./dist/style/'))
+            .pipe(gulp.dest('./style/'))
             .on('end', function() {
                 // gulp.start('concat-src');
             });
     })
 
-    gulp.task('concat-css', function() {
-        gulp.src('./src/style/**/*.css')
-            .pipe(sourcemap.init({
-                loadMaps: true
-            }))
-            .pipe(concatCss('style.css'))
-            .pipe(sourcemap.write('./'))
-            .pipe(gulp.dest('./dist/style/'))
-            .on('end', function() {
-                gulp.start('clean-src'); // 编译完成之后的第二次清理
-            });
-    })
-
-    gulp.task('clean-src', function() {
-        gulp.src(['./src/style/**/*.css', './src/style/**/*.map'], {
+    gulp.task('clean-css', function() {
+        gulp.src(['./style/**/*.css', './style/**/*.map'], {
                 read: false
             })
             .pipe(clean({
@@ -77,21 +65,18 @@ gulp = (function(gulp) {
             }))
     })
 
-    gulp.task('clean-dist', function() {
-        gulp.src(['./dist/style/**/*.css', './dist/style/**/*.map'], {
-                read: false
-            })
-            .pipe(clean({
-                force: true
-            }))
-    })
-
-    gulp.task('css:watch', ['clean-dist'], function() {
+    gulp.task('css:watch', ['clean-css'], function() {
         gulp.watch(['./src/style/**/*.scss'], ['scss']);
         gulp.watch(['./src/style/**/*.sass'], ['sass']);
     })
 
+    gulp.task('css',['clean-css'],function() {
+        gulp.start('scss');
+        gulp.start('sass');
+    })
+
     return gulp;
+
 })(gulp)
 
 /**
@@ -106,18 +91,18 @@ gulp = (function(gulp) {
             .pipe(sourcemap.init())
             .pipe(babel())
             // .pipe(sourcemap.write('./'))
-            .pipe(gulp.dest('./dist/script'))
+            .pipe(gulp.dest('./script'))
             // .pipe(sourcemap.init())
             .pipe(rename(function(path) {
                 path.basename += '.min'
             }))
             .pipe(uglify())
             .pipe(sourcemap.write('./'))
-            .pipe(gulp.dest('./dist/script/'));
+            .pipe(gulp.dest('./script/'));
     })
 
     gulp.task('clean-js', function() {
-        gulp.src(['./dist/script/**/*.js', './dist/script/**/*.map'], {
+        gulp.src(['./script/**/*.js', './script/**/*.map'], {
                 read: false
             })
             .pipe(clean({
@@ -138,36 +123,3 @@ gulp = (function(gulp) {
  * move script and style out of dist
  * del folder dist、src、node_modules、.babelrc、
  */
-gulp = (function(gulp) {
-
-    gulp.task('release', function() {
-        gulp.src('./dist')
-            .pipe(gulp.dest('./'))
-            .on('end', function() {
-                gulp.start('release-clean');
-            })
-    })
-
-    gulp.task('release-clean', function() {
-        gulp.src([
-                './dist',
-                './src',
-                './node_modules',
-                './unitTest',
-                './gulpfile.js',
-                './karma.conf.js',
-                './package.json',
-                './readme.md',
-                './test.html',
-                '.babelrc',
-                '.csscomb.json',
-                '.gitignore',
-            ], {
-                read: false
-            })
-            .pipe(clean({
-                force: true
-            }))
-    })
-
-})(gulp)

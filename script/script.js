@@ -16,17 +16,32 @@ window.ucai = window.ucai || {};
         return Math.random() * this.max;
     };
 
+    /**
+     * check if this num is in this.result
+     * @param  {number} num number to check
+     * @return boolen       true for in ; false for not in
+     */
     main.prototype.checkNumber = function (num) {
         for (var i = 0; i < this.result.length; i++) {
-            this.result[i] = num;
+            if (this.result[i] == num) {
+                return true;
+            } else {}
         }
+        return false;
     };
 
     main.prototype.getNNumber = function () {
-        for (var i = 0; i < this.n; i++) {
-            // this.result.push(this.getRandomNumber())
+        while (this.result.length < this.n) {
+            var num = this.getRandomNumber();
+            if (!this.checkNumber(num) && num > this.min && num < this.max) {
+                this.result.push(num);
+            } else {}
         }
+
+        return this.result;
     };
+
+    ucai.Random = main;
 })()(function (str) {
     var _str = str;
     console.log(_str);
