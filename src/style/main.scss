@@ -1,18 +1,16 @@
-@import url('./nav.css');
-html,body{
-    margin: 0;
-    padding: 0;
-    font: 16px;
-    ul, ol, dl, li {
-        list-style: none;
-    }
-    a {
-        color:rgb(249, 168, 68);
-        &:hover{
-            color:rgb(205, 43, 121);
-        }
-    }
+@import url('./var.scss');
+@import url('./nav/nav.css');
+
+
+$color-1: rgb(207, 9, 9);
+$color-2: rgb(0, 255, 18);
+$color-3: rgb(179, 49, 177);
+
+body{
+    background-color: $color-1;
 }
-.footer{
-    background: rgb(0, 0, 0) ;
+
+div{
+    width:140px;
+    padding: 30px;
 }

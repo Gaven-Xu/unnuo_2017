@@ -57,7 +57,7 @@ gulp = (function(gulp) {
     })
 
     gulp.task('clean-css', function() {
-        gulp.src(['./style/**/*.css', './style/**/*.map'], {
+        gulp.src(['./style/'], {
                 read: false
             })
             .pipe(clean({
