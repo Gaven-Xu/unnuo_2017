@@ -1,12 +1,12 @@
 # folders
-RD unitTest
+rm -r unitTest
 
 # files
-DEL .babelrc
-DEL .csscomb.json
-DEL gulpfile.js
-DEL karma.conf.js
-DEL package.json
-DEL readme.md
-DEL release.sh
-DEL test.html
+rm .babelrc
+rm .csscomb.json
+rm gulpfile.js
+rm karma.conf.js
+rm package.json
+rm readme.md
+rm release.sh
+rm test.html
