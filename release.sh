@@ -1,5 +1,6 @@
 # folders
 rm -r unitTest
+rm -r src
 
 # files
 rm .babelrc
