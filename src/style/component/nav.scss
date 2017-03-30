@@ -1,23 +1,38 @@
-#nav{
+#nav {
     position: fixed;
     bottom: 0;
-    left:0;
+    left: 0;
     height: 64px;
     width: 100%;
-    .icon{
+    background-color: $nav-bg-color;
+
+    .icon {
         height: inherit;
         width: 25%;
+        background-size: auto 40px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        float: left;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $nav-hv-color;
+        }
     }
-    .icon-fun{
-        background: url('../img/fun.png') no-repeat;
+
+    .icon-fun {
+        background-image: url('../img/fun.png');
     }
-    .icon-chat{
-        background: url('../img/chat.png') no-repeat;
+
+    .icon-chat {
+        background-image: url('../img/chat.png');
     }
-    .icon-collect{
-        background: url('../img/collect.png') no-repeat;
+
+    .icon-collect {
+        background-image: url('../img/collect.png');
     }
-    .icon-user{
-        background: url('../img/user.png') no-repeat;
+
+    .icon-user {
+        background-image: url('../img/user.png');
     }
 }

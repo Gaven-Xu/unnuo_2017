@@ -1,0 +1,26 @@
+#posts {
+    .post {
+        width: 98%;
+        margin: 1%;
+        min-height: 100px;
+        background-color: #090;
+    }
+
+    .game {
+        background-color: #000;
+    }
+
+    #mineSweep {
+        .mine {
+            width: 12%;
+            height: 28px;
+            background: rgb(235, 199, 107);
+            float: left;
+            margin: 0.25%;
+        }
+        .mine-boom{
+            background: rgb(235, 134, 107);
+
+        }
+    }
+}
