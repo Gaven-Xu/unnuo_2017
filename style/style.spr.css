@@ -1,0 +1,2 @@
+body{background:#906f6f}#nav{position:fixed;bottom:0;left:0;height:64px;width:100%}#nav .icon{height:inherit;width:25%}#nav .icon-fun{background:url(../img/spritesheet.png) no-repeat;background-position:0 0}#nav .icon-chat{background:url(../img/spritesheet.png) no-repeat;background-position:0 -128px}#nav .icon-collect{background:url(../img/spritesheet.png) no-repeat;background-position:-175px 0}#nav .icon-user{background:url(../img/spritesheet.png) no-repeat;background-position:-303px 0}
+/*# sourceMappingURL=style.spr.css.map */

@@ -3,15 +3,22 @@ var gulp = require('gulp'),
     sourcemap = require('gulp-sourcemaps'),
     babel = require('gulp-babel'),
     concat = require('gulp-concat'),
-    concatCss = require('gulp-concat-css'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
-    clean = require('gulp-clean');
+    clean = require('gulp-clean'),
+    cleanCss = require('gulp-clean-css'),
+    imgmin = require('gulp-image'),
+    spriter = require('gulp-css-spriter');
 // sassLint = require('gulp-sass-lint'); 文档不好用
 
 gulp.task('default', function() {
     gulp.start('css');
     gulp.start('es');
+})
+
+gulp.task('clean', function() {
+    gulp.start('clean-css');
+    gulp.start('clean-js');
 })
 
 /**
@@ -23,7 +30,7 @@ gulp.task('default', function() {
 gulp = (function(gulp) {
 
     gulp.task('scss', function() {
-        gulp.src('./src/style/**/*.scss')
+        gulp.src('./src/style/*.scss')
             .pipe(sourcemap.init({
                 loadMaps: true
             }))
@@ -35,12 +42,12 @@ gulp = (function(gulp) {
             // write('./') 将map信息，在指定目录，以map文件的方式存储
             .pipe(gulp.dest('./style/'))
             .on('end', function() {
-                // gulp.start('concat-css');
+                gulp.start('sprite');
             });
     })
 
     gulp.task('sass', function() {
-        gulp.src('./src/style/**/*.sass')
+        gulp.src('./src/style/*.sass')
             .pipe(sourcemap.init({
                 loadMaps: true
             }))
@@ -52,8 +59,28 @@ gulp = (function(gulp) {
             // write('./') 将map信息，在指定目录，以map文件的方式存储
             .pipe(gulp.dest('./style/'))
             .on('end', function() {
-                // gulp.start('concat-src');
+                gulp.start('sprite');
             });
+    })
+
+    gulp.task('sprite',function() {
+        gulp.src('./style/style.css')
+        .pipe(spriter({
+            // The path and file name of where we will save the sprite sheet
+            'spriteSheet': './img/spritesheet.png',
+            // Because we don't know where you will end up saving the CSS file at this point in the pipe,
+            // we need a litle help identifying where it will be.
+            'pathToSpriteSheetFromCSS': '../img/spritesheet.png'
+        }))
+        // 开始记录map
+        .pipe(sourcemap.init())
+        .pipe(rename(function(path) {
+            path.basename += '.spr'
+        }))
+        // 增加css压缩
+        .pipe(cleanCss())
+        .pipe(sourcemap.write('./'))
+        .pipe(gulp.dest('./style/'));
     })
 
     gulp.task('clean-css', function() {
@@ -70,7 +97,7 @@ gulp = (function(gulp) {
         gulp.watch(['./src/style/**/*.sass'], ['sass']);
     })
 
-    gulp.task('css',['clean-css'],function() {
+    gulp.task('css', ['clean-css'], function() {
         gulp.start('scss');
         gulp.start('sass');
     })
@@ -102,7 +129,7 @@ gulp = (function(gulp) {
     })
 
     gulp.task('clean-js', function() {
-        gulp.src(['./script/**/*.js', './script/**/*.map'], {
+        gulp.src('./script', {
                 read: false
             })
             .pipe(clean({
@@ -117,7 +144,6 @@ gulp = (function(gulp) {
     return gulp;
 
 })(gulp)
-
 /**
  * For release
  * move script and style out of dist

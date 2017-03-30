@@ -1,0 +1,10 @@
+@import './component/var.scss'; // scss import
+
+body{
+    background: $background-color;
+}
+
+/**
+ * nav part
+ */
+@import './component/nav.scss';

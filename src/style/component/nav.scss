@@ -1,0 +1,23 @@
+#nav{
+    position: fixed;
+    bottom: 0;
+    left:0;
+    height: 64px;
+    width: 100%;
+    .icon{
+        height: inherit;
+        width: 25%;
+    }
+    .icon-fun{
+        background: url('../img/fun.png') no-repeat;
+    }
+    .icon-chat{
+        background: url('../img/chat.png') no-repeat;
+    }
+    .icon-collect{
+        background: url('../img/collect.png') no-repeat;
+    }
+    .icon-user{
+        background: url('../img/user.png') no-repeat;
+    }
+}
