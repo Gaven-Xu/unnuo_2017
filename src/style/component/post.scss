@@ -1,7 +1,7 @@
 #posts {
     .post {
-        width: 98%;
-        margin: 1%;
+        // width: 98%;
+        // margin: 1%;
         min-height: 100px;
         background-color: #090;
     }
@@ -11,16 +11,71 @@
     }
 
     #mineSweep {
+        max-height: 560px;
+        overflow-x: scroll;
+        overflow-y: scroll;
+        &:after {
+            content: '';
+            clear: both;
+            display: block;
+        }
+
         .mine {
-            width: 12%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 18px;
+            width: 6.25%;
+            border: 1px solid rgb(81, 120, 151);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             height: 28px;
             background: rgb(235, 199, 107);
             float: left;
-            margin: 0.25%;
+            cursor:pointer;
         }
-        .mine-boom{
-            background: rgb(235, 134, 107);
 
+        .mine-bomb {
+            background-image: url(../img/bomb.png);
+            background-repeat: no-repeat;
+            background-size: 50%;
+            background-position: center center;
+        }
+
+        .has0 {
+            color: rgb(177, 177, 177);
+        }
+
+        .has1 {
+            color: rgb(128, 176, 204);
+        }
+
+        .has2 {
+            color: rgb(65, 181, 105);
+        }
+
+        .has3 {
+            color: rgb(116, 181, 65);
+        }
+
+        .has4 {
+            color: rgb(181, 166, 65);
+        }
+
+        .has5 {
+            color: rgb(181, 124, 65);
+        }
+
+        .has6 {
+            color: rgb(181, 86, 65);
+        }
+
+        .has7 {
+            color: rgb(181, 65, 110);
+        }
+
+        .has8 {
+            color: rgb(181, 65, 173);
         }
     }
 }

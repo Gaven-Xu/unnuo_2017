@@ -1,5 +1,4 @@
-window.ucai = window.ucai || {};
-
+window.unnuo = window.unnuo || {};
 (function() {
 
     // 传入一个参数n。生成n个1-31的随机数，且不重复
@@ -40,13 +39,13 @@ window.ucai = window.ucai || {};
             ){
                 this.result.push(num);
             }else{
-                
+
             }
         }
 
         return this.result;
     }
 
-    ucai.Random = main;
+    unnuo.Random = main;
 
 })()

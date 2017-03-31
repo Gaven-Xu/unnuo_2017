@@ -1,18 +1,13 @@
 <?php //get_header();?>
 <?php include("header.php") ?>
+
 <div id="posts">
+    <div id="mineSweep" class="post game">
 
-    <?php
-      if(have_posts()) : while (have_posts()) : the_post();
-    ?>
-    <div class="post post_<?php the_ID()?>">
-        <a href="<?php the_permalink()?>">
-            <?php the_title(); ?>
-        </a>
-        <?php the_content(); ?>
     </div>
-    <?php endwhile;endif;?>
-
+    <script type="text/javascript">
+        new unnuo.mineSweep(1, 'mineSweep');
+    </script>
 </div>
 
 <?php get_footer() ?>

@@ -1,10 +1,13 @@
 @import './component/var.scss'; // scss import
 
-body{
-    background: $background-color;
+body,
+html {
+    background: $bg-color;
+    margin: 0;
+    padding: 0;
 }
-
 /**
  * nav part
  */
 @import './component/nav.scss';
+@import './component/post.scss';
