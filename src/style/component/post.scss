@@ -11,9 +11,7 @@
     }
 
     #mineSweep {
-        max-height: 560px;
-        overflow-x: scroll;
-        overflow-y: scroll;
+        margin:30px auto;
         &:after {
             content: '';
             clear: both;
@@ -22,24 +20,24 @@
 
         .mine {
             text-align: center;
-            line-height: 28px;
             font-size: 18px;
-            width: 6.25%;
             border: 1px solid rgb(81, 120, 151);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            height: 28px;
             background: rgb(235, 199, 107);
             float: left;
             cursor:pointer;
         }
-
         .mine-bomb {
             background-image: url(../img/bomb.png);
             background-repeat: no-repeat;
             background-size: 50%;
             background-position: center center;
+        }
+
+        .opened{
+            background-color: #f0f0f0;
         }
 
         .has0 {

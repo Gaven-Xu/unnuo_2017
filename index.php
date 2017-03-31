@@ -5,9 +5,8 @@
     <div id="mineSweep" class="post game">
 
     </div>
-    <script type="text/javascript">
-        new unnuo.mineSweep(1, 'mineSweep');
-    </script>
+    <button id="new" type="button" name="button">重新来过</button>
+    <button id="save" type="button" name="button">保存进度</button>
 </div>
 
 <?php get_footer() ?>

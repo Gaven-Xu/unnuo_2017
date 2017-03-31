@@ -1,42 +1,68 @@
 window.unnuo = window.unnuo || {};
 (function() {
 
-    function mineSweep(_times) {
-        if (typeof _times === 'number' && _times > 0) {
-            this.times = _times;
+    function mineSweep(_times, _container, _newBtn, _saveBtn) {
+
+        var history = JSON.parse(localStorage.getItem('unnnuoMineSweepHistory'))
+
+
+        if (history) {
+            this.times = history.times;
+            this.bombArray = history.bombArray;
+            this.openedAmount = history.opendAmount;
+            this.canplay = history.canplay;
+        } else if (typeof _times != 'number' || _times <= 0) {
+            return console.log('game init error');
         } else {
-            this.times = 0;
+            this.times = _times;
+            this.bombArray = [];
+            this.opendAmount = 0;
+            this.canplay = true;
         }
-        this.container = document.getElementById('mineSweep');
-        this.col = 16;
-        this.row = 20 * this.times;
-        this.mineAmount = 150 * this.times;
         this.array = [];
-        this.bombArray = [];
+        this.container = document.getElementById(_container);
+        this.newBtn = document.getElementById(_newBtn);
+        this.saveBtn = document.getElementById(_saveBtn);
+        this.col = 40;
+        var gameWidth = window.innerWidth-40;
+        var size = gameWidth/this.col
+        var style = document.createElement('style');
+        style.innerHTML = `#mineSweep{width:${gameWidth}px;}.mine{width:${size}px;height:${size}px;line-height:${size}px}`;
+        document.head.appendChild(style);
+        this.row = 30 * this.times;
+        this.mineAmount = 220 * this.times;
+        this.AMOUNT = this.col * this.row;
 
         /**
          * create mine Data Array
          * 2017/3/30 下午2:50:27
          */
         this.createGameData = function() {
-            var r = 0,
-                c = 0;
-            while (r < this.row) {
+            for (var r = 0; r < this.row; r++) {
                 this.array[r] = [];
-                while (c < this.col) {
-                    let mine = new unnuo.Mine(this.sweep);
+                for (var c = 0; c < this.col; c++) {
+                    let mine = new unnuo.Mine();
                     this.array[r][c] = mine;
                     mine.row = r;
                     mine.col = c;
-                    this.container.appendChild(mine.htmlDOM);
-                    c++;
                 }
-                c = 0;
-                r++;
-
             }
-            r = 0;
-            c = 0;
+            return this;
+        }
+
+        this.createHistoryGameData = function() {
+            for (var r = 0; r < this.row; r++) {
+                this.array[r] = [];
+                for (var c = 0; c < this.col; c++) {
+                    let mine = new unnuo.Mine();
+                    this.array[r][c] = history.array[r][c];
+                    mine.htmlDOM.className = history.array[r][c].className;
+                    this.array[r][c].htmlDOM = mine.htmlDOM;
+                    if(this.array[r][c].opened){
+                        this.array[r][c].htmlDOM.innerHTML = this.array[r][c].number;
+                    }
+                }
+            }
             return this;
         }
 
@@ -88,37 +114,109 @@ window.unnuo = window.unnuo || {};
                             }
                         }
                         this.array[row][col].number = temp;
-                        this.array[row][col].htmlDOM.innerHTML = temp;
-                        this.array[row][col].htmlDOM.className += ' has' + temp;
                     }
                 }
             }
             return this;
         }
 
+        this.sweep = function(point) {
+            if (point.isMine) {
+                // bomb
+                alert('Game Over');
+                this.canplay = false;
+
+            } else {
+
+                point.opened = true;
+                this.opendAmount++;
+                if (this.opendAmount + this.mineAmount >= this.AMOUNT) {
+                    console.log('Success');
+                    this.canplay = false;
+                }
+
+                point.htmlDOM.innerHTML = point.number;
+                point.htmlDOM.className += ' opened has' + point.number;
+                // 增加扫雷成功之后的方法，更改样式，添加特效
+
+                if (point.number == 0) {
+                    // 如果不是雷，并且周围没有雷
+                    for (var i = -1; i < 2; i++) {
+                        if (this.array[point.row + i]) {
+                            for (var j = -1; j < 2; j++) {
+                                if (this.array[point.row + i][point.col + j] && !this.array[point.row + i][point.col + j].opened) {
+                                    this.sweep(this.array[point.row + i][point.col + j]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /**
+         * 给各个点绑定上事件处理器
+         * 2017/3/31 下午2:53:31
+         */
         this.handle = function() {
             // 给各个点绑定上事件处理器
-            console.log('handle');
+            for (var row = 0; row < this.array.length; row++) {
+                for (var col = 0; col < this.array[row].length; col++) {
+                    let point = this.array[row][col];
+                    this.array[row][col].htmlDOM.addEventListener('click', function() {
+                        if (this.canplay) {
+                            this.sweep(point);
+                        }
+                    }.bind(this));
+                }
+            }
+            return this;
         }
 
-        this.createGameData().createMinePosition().calculateAround().handle(); //
-
-    }
-
-    mineSweep.prototype.start = function() {
-        // 开始方法
-    }
-
-    mineSweep.prototype.save = function() {
-        // 保存游戏状态
-        if (Signed) {
-            // 如果已经登录的，保存到服务器
-        } else {
-            localStorage.setItem('unnnuoMineSweepHistory', JSON.stringify(this.array))
+        this.render = function() {
+            for (var r = 0; r < this.row; r++) {
+                for (var c = 0; c < this.col; c++) {
+                    this.container.appendChild(this.array[r][c].htmlDOM)
+                }
+            }
         }
+
+        this.newBtn.onclick = function() {
+            // 开始方法
+            alert('New Game')
+            this.container.innerHTML = '';
+            localStorage.removeItem('unnnuoMineSweepHistory');
+            this.createGameData().createMinePosition().calculateAround().handle().render();
+
+        }.bind(this)
+
+        this.saveBtn.onclick = function() {
+            // 保存游戏状态
+            // var insertData =
+            for (var r = 0; r < this.row; r++) {
+                for (var c = 0; c < this.col; c++) {
+                    this.array[r][c].className = this.array[r][c].htmlDOM.className;
+                }
+            }
+            localStorage.setItem('unnnuoMineSweepHistory', JSON.stringify({
+                times: this.times,
+                array: this.array,
+                bombArray: this.bombArray,
+                openedAmount: this.opendAmount,
+                canplay: this.canplay
+            }))
+        }.bind(this)
+
+        if(history){
+            // this.createHistoryGameData().createMinePosition().calculateAround().handle().render();
+            this.createHistoryGameData().handle().render();
+        }else{
+            this.createGameData().createMinePosition().calculateAround().handle().render();
+        }
+
     }
 
     unnuo.mineSweep = mineSweep;
-})()
 
-// new unnuo.mineSweep(1);
+})()
+new unnuo.mineSweep(15, 'mineSweep', 'new', 'save');
