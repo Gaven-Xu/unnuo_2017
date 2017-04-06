@@ -1,14 +1,46 @@
 @import './component/var.scss'; // scss import
+@import './component/nav.scss'; //
+@import './component/post.scss';
 
 body,
 html {
-    background: $bg-color;
+    min-height: 768px;
+    background-color: $bg-color;
     margin: 0;
     padding: 0;
 }
 
-/**
- * nav part
- */
-@import './component/nav.scss';
-@import './component/post.scss';
+body {
+    background-size: cover;
+    // background-blend-mode: multiply;
+    // background-image: url($image-url + 'background.jpg');
+}
+
+a {
+    text-decoration: none;
+
+    &:link {
+        color: $link-color;
+    }
+
+    &:visited {
+        color: $link-color;
+    }
+
+    &:hover {
+        color: $link-color-hover;
+    }
+
+    &:active {
+        color: $link-color-hover;
+    }
+}
+
+dl,
+li,
+ol,
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}

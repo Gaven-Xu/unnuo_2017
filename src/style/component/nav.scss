@@ -1,38 +1,134 @@
-#nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 64px;
-    width: 100%;
-    background-color: $nav-bg-color;
+#Nav {
+    position: relative;
 
-    .icon {
-        height: inherit;
-        width: 25%;
-        background-size: auto 40px;
-        background-position: center center;
-        background-repeat: no-repeat;
-        float: left;
+    .menu-btn,
+    .menu-btn-expand {
+        width: $nav-width;
+        padding: 20px 0;
+        left: 0;
+        top: 0;
         cursor: pointer;
+        position: fixed;
+        z-index: 5000;
 
-        &:hover {
-            background-color: $nav-hv-color;
+        .line {
+            width: 30px;
+            height: 5px;
+            margin: 0 auto;
+            background-color: $link-color;
+            transition:  opacity $speed-x ease,width $speed-x ease,background-color $speed-xx ease,transform $speed-xx ease;
+        }
+
+        &:hover .line {
+            background-color: $link-color-hover;
         }
     }
 
-    .icon-fun {
-        background-image: url('../img/fun.png');
+    .menu-btn {
+        background-color: $none-color;
+        .line1,
+        .line3,
+        .line5 {
+            opacity: 1;
+        }
+
+        .line2,
+        .line4 {
+            opacity: 0;
+        }
+
+        &:hover {
+            .line1,
+            .line5 {
+                transform: translate(5px,0);
+            }
+
+            .line3 {
+                transform: translate(-5px,0);
+            }
+            .line1,
+            .line3,
+            .line5 {
+                width:20px;
+            }
+        }
     }
 
-    .icon-chat {
-        background-image: url('../img/chat.png');
+    .menu-btn-expand {
+        transition:background-color $speed-xx ease $speed-x;
+        .line1,
+        .line3,
+        .line5 {
+            opacity: 0;
+        }
+
+        .line2,
+        .line4 {
+            opacity: 1;
+        }
+
+        .line2 {
+            transform: translate(0,5px) rotate(-45deg);
+        }
+
+        .line4 {
+            transform: translate(0,-5px) rotate(45deg);
+        }
+        &:hover{
+            // background-color: $link-color-background;
+            .line2,
+            .line4 {
+                width:20px;
+            }
+            .line2 {
+                transform: translate(0,-1px) rotate(-45deg);
+            }
+
+            .line4 {
+                transform: translate(0,1px) rotate(45deg);
+            }
+
+        }
     }
 
-    .icon-collect {
-        background-image: url('../img/collect.png');
+    .menu-content {
+        width: $nav-width;
+        padding: 65px 0 0;
+        text-align: center;
+        font-size: 14px;
+        background: $none-color;
+        top: 0;
+        bottom: 0;
+        transform: translate(-$nav-width,0);
+        position: fixed;
+        z-index: 4999;
+        transition: transform $speed-x ease,background-color $speed-x ease;
+        .menu-item{
+            transition: transform $speed-x ease;
+            transform: translate(-$nav-width,0);
+            a{
+                line-height:42px;
+                transition: background-color $speed-x ease;
+                display: block;
+                color:$font-color;
+                &:hover{
+                    background-color: $link-color-background;
+                }
+            }
+        }
+        .current-menu-item{
+            a{
+                color:$link-color-hover;
+                background-color: $link-color-background;
+            }
+        }
+        .out{
+            transform: translate(0,0);
+        }
     }
 
-    .icon-user {
-        background-image: url('../img/user.png');
+    .menu-content-expand {
+        background: $nav-background-color;
+        transform: translate(0,0);
     }
 }
