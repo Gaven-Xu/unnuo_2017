@@ -1,3 +1,4 @@
+    <div id="logo"></div>
     <div id="footer">
         <!-- FOOTER -->
     </div>

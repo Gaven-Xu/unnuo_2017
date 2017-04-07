@@ -1,19 +1,23 @@
 @import './component/var.scss'; // scss import
-@import './component/nav.scss'; //
-@import './component/post.scss';
+@import './component/keyframe.scss'; // scss import
+@import './component/logo.scss';
+@import './component/nav.scss';
+@import './component/layout.scss';
 
 body,
 html {
     min-height: 768px;
     background-color: $bg-color;
     margin: 0;
-    padding: 0;
 }
-
 body {
-    background-size: cover;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    // background-size: cover;
+    // background-attachment: fixed;
     // background-blend-mode: multiply;
-    // background-image: url($image-url + 'background.jpg');
+    // background-image: url($image-url + 'background2.jpg');
+    // background-repeat: no-repeat;
 }
 
 a {

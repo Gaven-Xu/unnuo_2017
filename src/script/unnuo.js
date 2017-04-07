@@ -50,22 +50,25 @@ window.unnuo = window.unnuo || {};
                     }
                 }, _time)
             }
+            return this;
         }
 
+        obj.splitBackground = function(_bgUrl,_amount) {
+            var self = this;
+            window.mm = self;
+            return this;
+        }
     }
 
     function uno(obj) {
-
         if (typeof obj == 'string') {
             var target = document.getElementById(obj);
         } else {
             var target = obj;
         }
-        //
         ClassHandle(target);
         // AjaxHandle(target);
         return target;
-
     }
 
     unnuo.uno = uno;
@@ -84,5 +87,8 @@ window.unnuo = window.unnuo || {};
         menuContent.toggleClass('menu-content-expand');
         menuItems.ergodicToggleClass('out', 100);
     })
+
+    var logo = unnuo.uno(document.querySelector("#logo"));
+    logo.splitBackground();
 
 })();

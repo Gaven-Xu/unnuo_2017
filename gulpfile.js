@@ -81,6 +81,8 @@ gulp = (function(gulp) {
     })
 
     gulp.task('css:watch', ['clean:css'], function() {
+        gulp.src('./src/img/*.*')
+            .pipe(gulp.dest('./img'));
         gulp.start('scss');
         gulp.watch(['./src/style/**/*.scss'], ['scss']);
     })
