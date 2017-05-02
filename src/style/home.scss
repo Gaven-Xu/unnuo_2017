@@ -1,0 +1,57 @@
+@import './component/var.scss'; // scss import
+
+#container .home {
+    width: 720px;
+    margin: 0 auto;
+    position: relative;
+
+    .cat-mix {
+        height:400px;
+        .mix-index {
+            width: 50px;
+
+            & > * {
+                height: 50px;
+                color:$link-color-hover;
+                background-color:$font-color;
+                cursor:pointer;
+
+                &:nth-child(2n){
+                    color:$font-color;
+                    background-color:$link-color-hover;
+                }
+
+                &:hover{
+                    color:$font-color;
+                    background-color:$link-color-background;
+                }
+
+                & > * {
+                    display: block;
+                    font: bold 14px/14px '微软雅黑';
+                    line-height: 20px;
+                    text-align: center;
+                    position: relative;
+                    top: 5px;
+                }
+
+                & *::selection{
+                    background: none;
+                }
+            }
+        }
+
+        .mix-content {
+            position: absolute;
+            left: 50px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            .mix-back{
+                width: 100%;
+                height: 400px;
+            }
+        }
+    }
+}

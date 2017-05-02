@@ -1,11 +1,11 @@
 // color secret can not tell
-$bg-color:#fff;
+$bg-color:#dfe5d8;
 $nav-background-color:#003c5a;
 
 $link-color: #ff5350;
 $link-color-hover: #54cdd8;
 $link-color-background: #ff5350;
-$link-color-danger: rgb(255, 40, 40);
+$link-color-danger: #ff2828;
 
 // // color angry fire
 // $bg-color:#373737;
@@ -37,3 +37,9 @@ $speed-xx: 0.4s;
 $speed-xxx: 0.6s;
 $speed-xxxx: 0.8s;
 $speed-xxxxx: 1s;
+
+// fonts
+@font-face {
+    font-family: 'zhsrkt';
+    src:url('../fonts/zhsrkt.ttf') format('truetype');
+}

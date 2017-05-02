@@ -1,37 +1,11 @@
 #container{
-    width:960px;
     min-height:680px;
     margin:65px auto;
-    background-color: rgba(#ffffff, 0.78);
     img{
         max-width: 100%;
     }
-    .home{
-        //todo
-
-    }
-    .author{
-        //todo
-
-    }
-    .archive{
-        //todo
-
-    }
-    .category{
-        //todo
-
-    }
-    .tag{
-        //todo
-
-    }
-    .search{
-        //todo
-
-    }
-    .err404{
-        //todo
-
-    }
+}
+#sidebar{
+    width: 210px;
+    min-height: 680px;
 }

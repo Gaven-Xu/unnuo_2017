@@ -9,15 +9,12 @@ html {
     min-height: 768px;
     background-color: $bg-color;
     margin: 0;
+    font: 12px arial,'宋体';
 }
+
 body {
     padding-top: 1px;
     padding-bottom: 1px;
-    // background-size: cover;
-    // background-attachment: fixed;
-    // background-blend-mode: multiply;
-    // background-image: url($image-url + 'background2.jpg');
-    // background-repeat: no-repeat;
 }
 
 a {
