@@ -1,6 +1,30 @@
-# UNNUO 2017
+<!-- TOC -->
+
+- [1. 使用](#1-使用)
+- [2. 配置流程](#2-配置流程)
+
+<!-- /TOC -->
 
 ![unnuo 2017](./screenshot.jpg)
+# 1. 使用
+
+compile files:
+
+    gulp css / gulp scss
+    gulp js / gulp es
+
+watch files:
+
+    gulp css:watch
+    gulp js:watch
+
+clean files:
+
+    gulp clean:all
+    gulp clean:css
+    gulp clean:js
+
+# 2. 配置流程
 
 1. Gulp 工程化
 

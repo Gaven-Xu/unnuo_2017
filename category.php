@@ -1,4 +1,6 @@
-<?php define( 'WP_USE_THEMES', false ); get_header(); ?>
+<?php get_header(); ?>
+<?php get_template_part('nav'); ?>
+
 
 <div id="container" class="category">
     <p>Category: <?php single_cat_title(); ?></p>
